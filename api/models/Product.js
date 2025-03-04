@@ -6,7 +6,7 @@ const ProductSchema = new mongoose.Schema({
   descripcion: { type: String },
   puntuacion: { type: Number },
   precio: { type: Number },
-  ASIN: { type: String, unique: true },
+  ASIN: { type: String, unique: true, required: true },
   categoria: { type: String }
 })
 

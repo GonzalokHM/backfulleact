@@ -6,7 +6,7 @@ const WishlistSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  ASIN: { type: String, required: true }
+  producto: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
 })
 
 const Wishlist = mongoose.model('Wishlist', WishlistSchema)

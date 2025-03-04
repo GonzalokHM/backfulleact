@@ -74,4 +74,4 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
-export { getUsers, updateUser, updateUserRol, deleteFile, deleteUser }
+export { getUsers, updateUser, updateUserRol, deleteUser }
