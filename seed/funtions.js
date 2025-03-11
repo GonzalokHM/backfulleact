@@ -65,7 +65,7 @@ const saveProductDocuments = async () => {
           const productsWithCategoryRef = await Promise.all(
             results.map(async (product) => {
               const category = await Category.findOne({
-                code: product.categoria
+                nombre: product.categoria
               })
               if (category) {
                 return { ...product, categoria: category._id }

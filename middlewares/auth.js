@@ -30,7 +30,7 @@ const isVip = async (req, res, next) => {
     return next(setError(401, 'No autenticado'))
   }
 
-  if (req.user.rol !== 'admin') {
+  if (!req.user.vip) {
     return next(setError(403, 'Esta acción sólo la pueden realizar los Vips'))
   }
 

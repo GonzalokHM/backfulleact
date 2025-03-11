@@ -1,3 +1,4 @@
+import productScraper from '../../scraper/products'
 import Category from '../models/Category'
 import Product from '../models/Product'
 
@@ -93,7 +94,7 @@ const getTopSellingPerCategory = async (req, res, next) => {
 }
 
 // Se asume que el parámetro "asin" se pasa en la URL, por ejemplo: /api/products/asin/B0012345
-export const getProductByASIN = async (req, res, next) => {
+const getProductByASIN = async (req, res, next) => {
   try {
     const product = await Product.findOne({ ASIN: req.params.asin }).populate(
       'categoria'
@@ -105,10 +106,74 @@ export const getProductByASIN = async (req, res, next) => {
   }
 }
 
+const vipSearch = async (req, res, next) => {
+  try {
+    const { name } = req.query
+    if (!name)
+      return res
+        .status(400)
+        .json({ message: 'El parámetro "name" es requerido' })
+
+    const query = { titulo: { $regex: name, $options: 'i' } }
+
+    let products = await Product.find(query).populate('categoria')
+    if (products.length === 0 && req.user.vip) {
+      console.log(
+        'No se encontraron productos. Iniciando scraping para usuario VIP...'
+      )
+      const scrapedProducts = await productScraper(name)
+
+      const nuevosProductos = await Promise.all(
+        scrapedProducts.map(async (prod) => {
+          const category = await Category.findOne({
+            nombre: { $regex: prod.categoria, $options: 'i' }
+          })
+          if (category) {
+            return { ...prod, categoria: category._id }
+          } else {
+            console.warn(
+              `Categoría "${prod.categoria}" no encontrada para el producto "${prod.titulo}"`
+            )
+            return null
+          }
+        })
+      )
+
+      const validProducts = nuevosProductos.filter((prod) => prod !== null)
+
+      if (validProducts.length > 0) {
+        try {
+          await Product.insertMany(validProducts, { ordered: false })
+        } catch (err) {
+          console.error(
+            'Error insertando productos (posiblemente por duplicados):',
+            err
+          )
+        }
+      }
+
+      products = await Product.find(query).populate('categoria')
+    }
+    const discountRate = req.user.vip ? 0.9 : 1
+    const discountedProducts = products.map((product) => {
+      const prodObj = product.toObject() //  a objeto para modificarlo sin afectar el modelo original
+      if (prodObj.precio && typeof prodObj.precio === 'number') {
+        prodObj.precio = prodObj.precio * discountRate
+      }
+      return prodObj
+    })
+
+    return res.json(discountedProducts)
+  } catch (error) {
+    console.error('Error en búsqueda VIP:', error)
+    return next(setError(400, 'Error al obtener productos VIP'))
+  }
+}
 export {
   getProducts,
   filterProducts,
   getUniqueProductPerCategory,
   getTopSellingPerCategory,
-  getProductByASIN
+  getProductByASIN,
+  vipSearch
 }

@@ -1,18 +1,35 @@
-code,nombre,slug,icono
-1,Electrónica,electrónica,⚡
-2,Hogar y Cocina,hogar y cocina,🏠
-3,Libros,libros,📚
-4,Belleza y cuidado personal,belleza y cuidado personal,🦋
-5,"Ropa, Calzado y Joyeria","ropa, calzado y joyeria",👕
-6,Juguetes,juguetes,🪁
-7,Salud,salud,🧑‍⚕️
-8,Bebé,bebé,🍼
-9,Deporte y aire libre,deporte y aire libre,🏋️‍♂️
-10,Arte,arte,🎨
-11,Automocion,automocion,🚗
-12,Alimenntacion,alimenntacion,🍕
-13,Productos de oficina,productos de oficina,🗄️
-14,Mascotas,mascotas,🐶
-15,Herramientas,herramientas,🛠️
-16,Electrodomesticos,electrodomesticos,🔌
-17,Jardin,jardin,🌷
+"nombre","icono"
+"Alimentación y bebidas","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51IyU8endKL._SL160_.jpg"
+"Bebé","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F511jpQMlG2L._SL160_.jpg"
+"Belleza","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51qynVPKvFL._SL160_.jpg"
+"Bricolaje y herramientas","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51EEmkLLYoL._SL160_.jpg"
+"Coche y moto","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41isrmDhtnS._SL160_.jpg"
+"Deportes y aire libre","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F414MZb-r9gL._SL160_.jpg"
+"Electrónica","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41H4HB6-LeL._SL160_.jpg"
+"Equipaje","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41AgOMN2mRL._SL160_.jpg"
+"Grandes electrodomésticos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31ChMOeqk%2BL._SL160_.jpg"
+"Hogar y cocina","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51GAFkGk8gL._SL160_.jpg"
+"Iluminación","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F310i-IvW4qL._SL160_.jpg"
+"Industria, empresas y ciencia","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41qTOpsKPOL._SL160_.jpg"
+"Informática","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41IFVG5ycrL._SL160_.jpg"
+"Instrumentos musicales","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41r4L%2BQ23DL._SL160_.jpg"
+"Jardín","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41ilepnicjL._SL160_.jpg"
+"Joyería","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51OOpPa0LrL._SL160_.jpg"
+"Juguetes y juegos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41-GsjntLYL._SL160_.jpg"
+"Libros","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41bWnU9yEVL._SL160_.jpg"
+"Oficina y papelería","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51tpIt3EBcL._SL160_.jpg"
+"Productos Handmade","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51opAzVJqeL._SL160_.jpg"
+"Productos para mascotas","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51OYRWgvIvL._SL160_.jpg"
+"Relojes","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41FZ1P65LuL._SL160_.jpg"
+"Ropa","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41Xba4gMkRL._SL160_.jpg"
+"Salud y cuidado personal","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31UuXxDusxS._SL160_.jpg"
+"Videojuegos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41FbnqfqeGL._SL160_.jpg"
+"Zapatos y complementos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41RcLBj3XjL._SL160_.jpg"
+"Moda","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F513mrPPkiQL._SL160_.jpg"
+"CDs y vinilos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31%2BxheuuHiL._SL160_.jpg"
+"Software","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F41G33NmbqsL._SL160_.jpg"
+"Dispositivos Amazon y Accesorios","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31xi2HjGVKL._SL160_.jpg"
+"Películas y TV","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F51ZIQxjxTxL._SL160_.jpg"
+"Cheques regalo","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31%2BxheuuHiL._SL160_.jpg"
+"Otros Productos","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31%2BxheuuHiL._SL160_.jpg"
+"Tienda Kindle","https://images.mejoresresenas.es/image/fetch/c_scale,f_auto/https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F31%2BxheuuHiL._SL160_.jpg"

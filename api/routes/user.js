@@ -1,3 +1,4 @@
+import { isAuth, isVip } from '../../middlewares/auth'
 import {
   getUsers,
   updateUser,
@@ -8,9 +9,9 @@ import express from 'express'
 
 const userRoutes = express.Router()
 
-userRoutes.get('/', getUsers)
-userRoutes.put('/', updateUser)
-userRoutes.put('/role/:id', updateUserRol)
-userRoutes.delete('/:id', deleteUser)
+userRoutes.get('/', [isAuth, isVip], getUsers)
+userRoutes.put('/', [isAuth], updateUser)
+userRoutes.put('/role/:id', [isAuth], updateUserRol)
+userRoutes.delete('/:id', [isAuth], deleteUser)
 
 export default userRoutes

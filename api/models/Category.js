@@ -1,10 +1,8 @@
 import mongoose from 'mongoose'
 
 const CategorySchema = new mongoose.Schema({
-  code: { type: String, required: true, unique: true },
-  nombre: { type: String, required: true },
-  slug: { type: String, required: true },
-  icono: { type: String }
+  nombre: { type: String, required: true, unique: true },
+  icono: { type: String, required: true }
 })
 
 const Category = mongoose.model('Category', CategorySchema)
