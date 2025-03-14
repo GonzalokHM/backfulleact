@@ -1,17 +1,18 @@
-import cloudinary from ('cloudinary').v2
+import { v2 as cloudinary } from 'cloudinary'
 
 const deleteFile = (imgUrl) => {
+  const parts = imgUrl.split('/')
+  const fileWithExtension = parts.pop()
+  const folder = parts.pop()
+  const public_id = `${folder}/${fileWithExtension.split('.')[0]}`
 
-    const imgSplited = imgUrl.split('/')
-    const nameSplited = imgSplited.at(-1).split('.')
-    nameSplited[0]
-    const folderSplited = imgSplited.at(-2)
-    const public_id = `${folderSplited}/${nameSplited[0]}`
-
-    cloudinary.uploader.destroy(public_id, () => {
-        console.log('imagen eliminada')
-    })
-
+  cloudinary.uploader.destroy(public_id, (error, result) => {
+    if (error) {
+      console.error('Error al eliminar la imagen:', error)
+    } else {
+      console.log('Imagen eliminada:', result)
+    }
+  })
 }
 
-export default  deleteFile
+export default deleteFile

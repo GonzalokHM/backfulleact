@@ -5,7 +5,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary'
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: '',
+    folder: 'backfulleact',
     allowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp']
   }
 })

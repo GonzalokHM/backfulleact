@@ -20,22 +20,4 @@ const getCategoryByName = async (req, res, next) => {
   }
 }
 
-const createCategory = async (req, res, next) => {
-  try {
-    const { nombre, icono } = req.body
-
-    const existingCategory = await Category.findOne({ nombre })
-    if (existingCategory) return next(setError(400, 'La categoría ya existe'))
-
-    const newCategory = new Category({
-      nombre,
-      icono
-    })
-    const savedCategory = await newCategory.save()
-    return res.status(201).json(savedCategory)
-  } catch (error) {
-    return next(setError(400, 'Error al crear la categoría'))
-  }
-}
-
 export { getCategories, getCategoryByName }

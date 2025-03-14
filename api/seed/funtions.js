@@ -71,7 +71,7 @@ const saveProductDocuments = async () => {
                 return { ...product, categoria: category._id }
               } else {
                 console.warn(
-                  `Categoría "${product.categoria}" no encontrada para el producto "${product.titulo}"`
+                  `Categoría "${product.categoria}" no encontrada para el producto "${product.asin}"`
                 )
                 return null
               }
