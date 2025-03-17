@@ -1,5 +1,5 @@
 import User from '../api/models/User.js'
-import setError from '../config/errors.js'
+import setError from '../config/error.js'
 import { verifyJwt } from '../config/jwt.js'
 
 const isAuth = async (req, res, next) => {

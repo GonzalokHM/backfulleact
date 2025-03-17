@@ -3,7 +3,8 @@ import {
   getWishlist,
   addToWishlist,
   removeFromWishlist
-} from '../controllers/wishlist'
+} from '../controllers/wishlist.js'
+import { isAuth } from '../../middlewares/auth.js'
 
 const wishlistRoutes = express.Router()
 

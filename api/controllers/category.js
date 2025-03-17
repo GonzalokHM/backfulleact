@@ -1,4 +1,5 @@
-import Category from '../models/Category'
+import setError from '../../config/error.js'
+import Category from '../models/Category.js'
 
 const getCategories = async (req, res, next) => {
   try {

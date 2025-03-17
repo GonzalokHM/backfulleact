@@ -33,9 +33,12 @@ async function productScraper(name) {
         Array.from(highlightElements)
           .map((el) => el.innerText.trim())
           .join(', ') || 'Sin descripcion'
-      const puntuacion =
-        elem.querySelector('span.productScore')?.innerText.trim() ||
-        'Sin puntuación'
+      const puntuacionStr = elem
+        .querySelector('span.productScore')
+        ?.innerText.trim()
+      const puntuacion = puntuacionStr
+        ? parseFloat(puntuacionStr.replace(',', '.'))
+        : 0
 
       const priceElements = elem.querySelectorAll('span.f18b')
       const precioStr =

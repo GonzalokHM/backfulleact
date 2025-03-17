@@ -1,6 +1,6 @@
 import Wishlist from '../models/Wishlist.js'
 import Product from '../models/Product.js'
-import { setError } from '../helpers/error.js'
+import setError from '../../config/error.js'
 
 const getWishlist = async (req, res, next) => {
   try {

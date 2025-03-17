@@ -1,5 +1,5 @@
-import User from '../models/User'
-import setError from '../../config/errors.js'
+import User from '../models/User.js'
+import setError from '../../config/error.js'
 import uploadToCloudinary from '../../utils/UpFile.js'
 import deleteFile from '../../utils/deleteFile.js'
 

@@ -3,7 +3,7 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import indexRouter from './api/routes/indexRouter.js'
 import dotenv from 'dotenv'
-import setError from './config/errors.js'
+import setError from './config/error.js'
 dotenv.config()
 
 const app = express()

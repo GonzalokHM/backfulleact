@@ -1,5 +1,4 @@
-// import {isAuth, isVip} from '../../middleware/auth.js'
-import { isAuth, isVip } from '../../middlewares/auth'
+import { isAuth, isVip } from '../../middlewares/auth.js'
 import {
   filterProducts,
   getProductByASIN,
@@ -7,7 +6,7 @@ import {
   getTopSellingPerCategory,
   getUniqueProductPerCategory,
   vipSearch
-} from '../controllers/product'
+} from '../controllers/product.js'
 import express from 'express'
 
 const productsRoutes = express.Router()

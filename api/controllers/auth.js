@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import { generateSign } from '../../config/jwt.js'
-import setError from '../../config/errors.js'
+import setError from '../../config/error.js'
 import User from '../models/User.js'
 
 const register = async (req, res, next) => {

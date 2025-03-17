@@ -1,6 +1,7 @@
-import productScraper from '../../scraper/products'
-import Category from '../models/Category'
-import Product from '../models/Product'
+import productScraper from '../scraper/products.js'
+import Category from '../models/Category.js'
+import Product from '../models/Product.js'
+import setError from '../../config/error.js'
 
 const getProducts = async (req, res, next) => {
   try {
@@ -93,7 +94,6 @@ const getTopSellingPerCategory = async (req, res, next) => {
   }
 }
 
-// Se asume que el parámetro "asin" se pasa en la URL, por ejemplo: /api/products/asin/B0012345
 const getProductByASIN = async (req, res, next) => {
   try {
     const product = await Product.findOne({ ASIN: req.params.asin }).populate(
@@ -156,7 +156,7 @@ const vipSearch = async (req, res, next) => {
     }
     const discountRate = req.user.vip ? 0.9 : 1
     const discountedProducts = products.map((product) => {
-      const prodObj = product.toObject() //  a objeto para modificarlo sin afectar el modelo original
+      const prodObj = product.toObject()
       if (prodObj.precio && typeof prodObj.precio === 'number') {
         prodObj.precio = prodObj.precio * discountRate
       }

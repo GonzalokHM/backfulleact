@@ -1,5 +1,5 @@
 import express from 'express'
-import { getCategories, getCategoryByName } from '../controllers/category'
+import { getCategories, getCategoryByName } from '../controllers/category.js'
 
 const categoriesRoutes = express.Router()
 

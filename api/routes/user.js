@@ -1,11 +1,11 @@
-import { isAuth, isVip } from '../../middlewares/auth'
-import upload from '../../middlewares/file'
+import { isAuth, isVip } from '../../middlewares/auth.js'
+import upload from '../../middlewares/file.js'
 import {
   getUsers,
   updateUser,
   updateUserRol,
   deleteUser
-} from '../controllers/user'
+} from '../controllers/user.js'
 import express from 'express'
 
 const userRoutes = express.Router()

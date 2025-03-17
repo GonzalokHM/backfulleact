@@ -2,6 +2,11 @@ import fs from 'fs'
 import csv from 'csv-parser'
 import Product from '../models/Product.js'
 import Category from '../models/Category.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const cleanCollections = async () => {
   try {
@@ -31,9 +36,10 @@ const cleanCollections = async () => {
 
 const saveCategoryDocuments = async () => {
   const results = []
+  const csvFilePath = path.join(__dirname, 'data', 'Categorias.csv')
 
   return new Promise((resolve, reject) => {
-    fs.createReadStream('./Categorias.csv')
+    fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => results.push(data))
       .on('end', async () => {
@@ -55,9 +61,10 @@ const saveCategoryDocuments = async () => {
 
 const saveProductDocuments = async () => {
   const results = []
+  const csvFilePath = path.join(__dirname, 'data', 'Productos.csv')
 
   return new Promise((resolve, reject) => {
-    fs.createReadStream('./Productos.csv')
+    fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => results.push(data))
       .on('end', async () => {
