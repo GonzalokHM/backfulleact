@@ -17,13 +17,13 @@ const filterProducts = async (req, res, next) => {
     const { name, categoriaName } = req.query
     let query = {}
     if (name) {
-      query.titulo = { $regex: name, $options: 'i' }
+      query.titulo = { $regex: name }
     }
 
     if (categoriaName) {
       const category = await Category.findOne({
-        nombre: { $regex: categoriaName, $options: 'i' }
-      })
+        nombre: { $regex: categoriaName }
+      }).collation({ locale: 'es', strength: 1 })
       if (category) {
         query.categoria = category._id
       } else {
@@ -31,7 +31,9 @@ const filterProducts = async (req, res, next) => {
       }
     }
 
-    const products = await Product.find(query).populate('categoria')
+    const products = await Product.find(query)
+      .populate('categoria')
+      .collation({ locale: 'es', strength: 1 })
     return res.json(products)
   } catch (error) {
     return next(setError(400, 'Error al obtener productos'))
@@ -96,7 +98,7 @@ const getTopSellingPerCategory = async (req, res, next) => {
 
 const getProductByASIN = async (req, res, next) => {
   try {
-    const product = await Product.findOne({ ASIN: req.params.asin }).populate(
+    const product = await Product.findOne({ asin: req.params.asin }).populate(
       'categoria'
     )
     if (!product) return next(setError(404, 'Producto no encontrado por ASIN'))

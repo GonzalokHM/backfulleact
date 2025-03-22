@@ -15,7 +15,7 @@ productsRoutes.get('/', getProducts)
 productsRoutes.get('/filter', filterProducts)
 productsRoutes.get('/unique', getUniqueProductPerCategory)
 productsRoutes.get('/top', getTopSellingPerCategory)
-productsRoutes.get('/asin/:asin', [isAuth], getProductByASIN)
+productsRoutes.get('/asin/:asin', getProductByASIN)
 productsRoutes.get('/vipSearch', [isAuth, isVip], vipSearch)
 
 export default productsRoutes
