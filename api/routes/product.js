@@ -2,6 +2,7 @@ import { isAuth, isVip } from '../../middlewares/auth.js'
 import {
   filterProducts,
   getProductByASIN,
+  getProductById,
   getProducts,
   getTopSellingPerCategory,
   getUniqueProductPerCategory,
@@ -12,6 +13,7 @@ import express from 'express'
 const productsRoutes = express.Router()
 
 productsRoutes.get('/', getProducts)
+productsRoutes.get('/id/:id', getProductById)
 productsRoutes.get('/filter', filterProducts)
 productsRoutes.get('/unique', getUniqueProductPerCategory)
 productsRoutes.get('/top', getTopSellingPerCategory)

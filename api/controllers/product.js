@@ -12,6 +12,16 @@ const getProducts = async (req, res, next) => {
   }
 }
 
+const getProductById = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('categoria')
+    if (!product) return next(setError(404, 'Producto no encontrado por ID'))
+    return res.json(product)
+  } catch (error) {
+    return next(setError(400, 'Error al obtener el producto por ID'))
+  }
+}
+
 const filterProducts = async (req, res, next) => {
   try {
     const { name, categoriaName } = req.query
@@ -171,6 +181,7 @@ const vipSearch = async (req, res, next) => {
 }
 export {
   getProducts,
+  getProductById,
   filterProducts,
   getUniqueProductPerCategory,
   getTopSellingPerCategory,
