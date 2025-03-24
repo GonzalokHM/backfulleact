@@ -13,7 +13,7 @@ app.set('trust proxy', 1)
 connectDB()
 const corsOptions = {
   origin: process.env.CORS_ORIGIN.split(','),
-  methods: ['GET', 'POST', 'PUT'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }

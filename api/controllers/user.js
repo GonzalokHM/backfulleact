@@ -26,8 +26,7 @@ const updateUser = async (req, res, next) => {
     }
 
     if (req.file) {
-      const result = await uploadToCloudinary(req.file.path, 'fulleact_avatars')
-      newUser.avatar = result.secure_url
+      newUser.avatar = req.file.path
       if (oldUser.avatar) {
         deleteFile(oldUser.avatar)
       }

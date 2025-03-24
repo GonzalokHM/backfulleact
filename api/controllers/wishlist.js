@@ -15,8 +15,8 @@ const getWishlist = async (req, res, next) => {
 
 const addToWishlist = async (req, res, next) => {
   try {
-    const { usuario, ASIN } = req.body
-    const product = await Product.findOne({ ASIN })
+    const { usuario, product_id } = req.body
+    const product = await Product.findById(product_id)
     if (!product) return next(setError(404, 'Producto no encontrado'))
     const newWishlistItem = new Wishlist({ usuario, producto: product._id })
     const savedItem = await newWishlistItem.save()
@@ -28,7 +28,10 @@ const addToWishlist = async (req, res, next) => {
 
 const removeFromWishlist = async (req, res, next) => {
   try {
-    const removedItem = await Wishlist.findByIdAndDelete(req.params.id)
+    const removedItem = await Wishlist.findOneAndDelete({
+      usuario: req.user._id,
+      producto: req.params.product_id
+    })
     if (!removedItem)
       return next(setError(404, 'Elemento no encontrado en la wishlist'))
     return res.json({ message: 'Elemento eliminado de la wishlist' })

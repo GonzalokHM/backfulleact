@@ -12,7 +12,7 @@ const getCategories = async (req, res, next) => {
 
 const getCategoryByName = async (req, res, next) => {
   try {
-    const { nombre } = req.params // ej: /api/categories/nombre/Electrónica
+    const { nombre } = req.params
     const category = await Category.findOne({ nombre: nombre })
     if (!category) return next(setError(404, 'Categoría no encontrada'))
     return res.json(category)

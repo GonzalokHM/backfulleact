@@ -10,6 +10,6 @@ const wishlistRoutes = express.Router()
 
 wishlistRoutes.get('/:userId', [isAuth], getWishlist)
 wishlistRoutes.post('/', [isAuth], addToWishlist)
-wishlistRoutes.delete('/:id', [isAuth], removeFromWishlist)
+wishlistRoutes.delete('/:product_id', [isAuth], removeFromWishlist)
 
 export default wishlistRoutes

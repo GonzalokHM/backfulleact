@@ -11,7 +11,7 @@ import express from 'express'
 const userRoutes = express.Router()
 
 userRoutes.get('/', [isAuth, isVip], getUsers)
-userRoutes.put('/', [isAuth, upload.single('avatar')], updateUser)
+userRoutes.put('/', [isAuth], upload.single('avatar'), updateUser)
 userRoutes.put('/role/:id', [isAuth], updateUserRol)
 userRoutes.delete('/:id', [isAuth], deleteUser)
 

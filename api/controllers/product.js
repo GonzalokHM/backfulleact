@@ -17,13 +17,13 @@ const filterProducts = async (req, res, next) => {
     const { name, categoriaName } = req.query
     let query = {}
     if (name) {
-      query.titulo = { $regex: name }
+      query.titulo = { $regex: name, $options: 'i' }
     }
 
     if (categoriaName) {
       const category = await Category.findOne({
-        nombre: { $regex: categoriaName }
-      }).collation({ locale: 'es', strength: 1 })
+        nombre: { $regex: categoriaName, $options: 'i' }
+      })
       if (category) {
         query.categoria = category._id
       } else {
@@ -31,9 +31,7 @@ const filterProducts = async (req, res, next) => {
       }
     }
 
-    const products = await Product.find(query)
-      .populate('categoria')
-      .collation({ locale: 'es', strength: 1 })
+    const products = await Product.find(query).populate('categoria')
     return res.json(products)
   } catch (error) {
     return next(setError(400, 'Error al obtener productos'))
