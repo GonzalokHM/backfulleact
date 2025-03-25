@@ -22,31 +22,99 @@ const getProductById = async (req, res, next) => {
   }
 }
 
+// const filterProducts = async (req, res, next) => {
+//   try {
+//     const { name, categoriaName } = req.query
+//     let query = {}
+//     if (name) {
+//       query.titulo = { $regex: name, $options: 'i' }
+//     }
+
+//     if (categoriaName) {
+//       const category = await Category.findOne({
+//         nombre: { $regex: categoriaName, $options: 'i' }
+//       })
+//       if (category) {
+//         query.categoria = category._id
+//       } else {
+//         return res.json([])
+//       }
+//     }
+
+//     const products = await Product.find(query).populate('categoria')
+//     return res.json(products)
+//   } catch (error) {
+//     return next(setError(400, 'Error al obtener productos'))
+//   }
+// }
+
 const filterProducts = async (req, res, next) => {
   try {
     const { name, categoriaName } = req.query
-    let query = {}
+    let pipeline = []
+    let category = null
     if (name) {
-      query.titulo = { $regex: name, $options: 'i' }
+      pipeline.push({
+        $search: {
+          index: 'default',
+          text: {
+            query: name,
+            path: 'titulo'
+          }
+        }
+      })
+    } else {
+      pipeline.push({ $match: {} })
     }
 
     if (categoriaName) {
-      const category = await Category.findOne({
-        nombre: { $regex: categoriaName, $options: 'i' }
-      })
-      if (category) {
-        query.categoria = category._id
+      const categoryResults = await Category.aggregate([
+        {
+          $search: {
+            index: 'default',
+            text: {
+              query: categoriaName,
+              path: 'nombre'
+            }
+          }
+        },
+        {
+          $limit: 1
+        }
+      ])
+      if (categoryResults && categoryResults.length > 0) {
+        category = categoryResults[0]
+        pipeline.push({
+          $match: {
+            categoria: category._id
+          }
+        })
       } else {
         return res.json([])
       }
     }
 
-    const products = await Product.find(query).populate('categoria')
+    pipeline.push({
+      $project: {
+        _id: 1,
+        titulo: 1,
+        categoria: 1,
+        img: 1,
+        descripcion: 1,
+        puntuacion: 1,
+        precio: 1,
+        marca: 1
+      }
+    })
+
+    const products = await Product.aggregate(pipeline)
     return res.json(products)
   } catch (error) {
     return next(setError(400, 'Error al obtener productos'))
   }
 }
+
+//
 
 const getUniqueProductPerCategory = async (req, res, next) => {
   try {
