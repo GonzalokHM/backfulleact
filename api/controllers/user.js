@@ -1,7 +1,7 @@
 import User from '../models/User.js'
 import setError from '../../config/error.js'
-import uploadToCloudinary from '../../utils/UpFile.js'
 import deleteFile from '../../utils/deleteFile.js'
+import cloudinary from '../../config/cloudinary.js'
 
 const getUsers = async (req, res, next) => {
   try {
@@ -20,24 +20,38 @@ const updateUser = async (req, res, next) => {
       return next(setError(404, 'User not found'))
     }
 
-    const newUser = {
+    const updatedData = {
       ...oldUser.toObject(),
       ...req.body
     }
-
     if (req.file) {
-      newUser.avatar = req.file.path
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: 'backfulleact',
+            allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp']
+          },
+          (error, result) => {
+            if (error) return reject(error)
+            resolve(result)
+          }
+        )
+        stream.end(req.file.buffer)
+      })
+
+      updatedData.avatar = result.secure_url
       if (oldUser.avatar) {
         deleteFile(oldUser.avatar)
       }
     }
 
-    const userUpdated = await User.findByIdAndUpdate(userId, newUser, {
+    const userUpdated = await User.findByIdAndUpdate(userId, updatedData, {
       new: true,
       runValidators: true
     })
     return res.status(200).json(userUpdated)
   } catch (error) {
+    console.error('[❌ ERROR in updateUser]', error)
     return next(setError(400, "can't update Users 😱"))
   }
 }
