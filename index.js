@@ -25,7 +25,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
   res.status(200).json({
-    message: 'Welcome to the Museum API',
+    message: 'Welcome to the comprador API',
     documentation: 'Refer to /api for available endpoints.',
     endpoints: {
       users: '/api/users',
