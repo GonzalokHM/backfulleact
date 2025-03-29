@@ -14,7 +14,7 @@ const isAuth = async (req, res, next) => {
     const { id } = verifyJwt(parsedToken)
     const userLogued = await User.findById(id)
     if (!userLogued) {
-      return next(setError(404, 'Usuario no encontrado'))
+      return next(setError(401, 'Usuario no encontrado'))
     }
 
     userLogued.password = null
@@ -22,7 +22,7 @@ const isAuth = async (req, res, next) => {
 
     next()
   } catch (error) {
-    return next(setError(403, 'llave incorrecta'))
+    return next(setError(401, 'llave incorrecta'))
   }
 }
 const isVip = async (req, res, next) => {
