@@ -4,7 +4,9 @@ async function productScraper(name) {
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
 
-  const searchUrl = `https://www.mejoresresenas.es/${name}`
+  const normalizedName = name.replace(/\s/g, '')
+
+  const searchUrl = `https://www.mejoresresenas.es/${normalizedName}`
 
   console.log(`Scrapeando: ${searchUrl}`)
   await page.goto(searchUrl, { waitUntil: 'networkidle2' })

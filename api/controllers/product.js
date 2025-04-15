@@ -51,6 +51,7 @@ const getProductById = async (req, res, next) => {
 const filterProducts = async (req, res, next) => {
   try {
     const { name, categoriaName } = req.query
+
     let pipeline = []
     let category = null
     if (name) {
@@ -59,7 +60,11 @@ const filterProducts = async (req, res, next) => {
           index: 'default',
           text: {
             query: name,
-            path: 'titulo'
+            path: 'titulo',
+            fuzzy: {
+              maxEdits: 1,
+              prefixLength: 3
+            }
           }
         }
       })
@@ -184,6 +189,10 @@ const getProductByASIN = async (req, res, next) => {
   }
 }
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 const vipSearch = async (req, res, next) => {
   try {
     const { name } = req.query
@@ -192,14 +201,54 @@ const vipSearch = async (req, res, next) => {
         .status(400)
         .json({ message: 'El parámetro "name" es requerido' })
 
-    const query = { titulo: { $regex: name, $options: 'i' } }
+    let pipeline = []
+    pipeline.push({
+      $search: {
+        index: 'default',
+        text: {
+          query: name,
+          path: 'titulo'
+        }
+      }
+    })
+    pipeline.push({
+      $project: {
+        _id: 1,
+        titulo: 1,
+        categoria: 1,
+        img: 1,
+        descripcion: 1,
+        puntuacion: 1,
+        precio: 1,
+        marca: 1
+      }
+    })
 
-    let products = await Product.find(query).populate('categoria')
+    let products = await Product.aggregate(pipeline)
+
     if (products.length === 0 && req.user.vip) {
       console.log(
         'No se encontraron productos. Iniciando scraping para usuario VIP...'
       )
-      const scrapedProducts = await productScraper(name)
+
+      const scrapeWithTimeout = async (searchTerm, timeout = 15000) => {
+        return Promise.race([
+          productScraper(searchTerm),
+          new Promise((_, reject) =>
+            setTimeout(
+              () => reject(new Error('Timeout del scraping excedido')),
+              timeout
+            )
+          )
+        ])
+      }
+      let scrapedProducts = []
+      try {
+        scrapedProducts = await scrapeWithTimeout(name)
+      } catch (err) {
+        console.error('Error durante el scraping:', err)
+        return next(setError(500, 'Error en el proceso de scraping'))
+      }
 
       const nuevosProductos = await Promise.all(
         scrapedProducts.map(async (prod) => {
@@ -228,13 +277,15 @@ const vipSearch = async (req, res, next) => {
             err
           )
         }
+        await delay(3000)
       }
 
-      products = await Product.find(query).populate('categoria')
+      products = await Product.aggregate(pipeline)
     }
     const discountRate = req.user.vip ? 0.9 : 1
     const discountedProducts = products.map((product) => {
-      const prodObj = product.toObject()
+      const prodObj =
+        typeof product.toObject === 'function' ? product.toObject() : product
       if (prodObj.precio && typeof prodObj.precio === 'number') {
         prodObj.precio = prodObj.precio * discountRate
       }
