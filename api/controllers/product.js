@@ -58,13 +58,26 @@ const filterProducts = async (req, res, next) => {
       pipeline.push({
         $search: {
           index: 'default',
-          text: {
-            query: name,
-            path: 'titulo',
-            fuzzy: {
-              maxEdits: 1,
-              prefixLength: 3
-            }
+          compound: {
+            should: [
+              {
+                autocomplete: {
+                  query: name,
+                  path: 'titulo',
+                  fuzzy: { maxEdits: 1, prefixLength: 2 }
+                }
+              },
+              {
+                text: {
+                  query: name,
+                  path: 'titulo',
+                  fuzzy: {
+                    maxEdits: 1,
+                    prefixLength: 3
+                  }
+                }
+              }
+            ]
           }
         }
       })
@@ -205,9 +218,26 @@ const vipSearch = async (req, res, next) => {
     pipeline.push({
       $search: {
         index: 'default',
-        text: {
-          query: name,
-          path: 'titulo'
+        compound: {
+          should: [
+            {
+              autocomplete: {
+                query: name,
+                path: 'titulo',
+                fuzzy: { maxEdits: 1, prefixLength: 2 }
+              }
+            },
+            {
+              text: {
+                query: name,
+                path: 'titulo',
+                fuzzy: {
+                  maxEdits: 1,
+                  prefixLength: 3
+                }
+              }
+            }
+          ]
         }
       }
     })
@@ -277,10 +307,12 @@ const vipSearch = async (req, res, next) => {
             err
           )
         }
-        await delay(3000)
+        // await delay(3000);
       }
 
-      products = await Product.aggregate(pipeline)
+      products = await Product.find({ titulo: { $regex: name, $options: 'i' } })
+        .select('_id titulo categoria img descripcion puntuacion precio marca')
+        .populate('categoria')
     }
     const discountRate = req.user.vip ? 0.9 : 1
     const discountedProducts = products.map((product) => {
